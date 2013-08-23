@@ -28,6 +28,10 @@ public class CountDisplay extends JLabel {
         setForeground(Color.cyan);
     }
 
+    public void setInactive(){
+        setForeground(Color.darkGray);
+    }
+
     public void setCount(String type, Integer count){
         if(type.equals("human")){
             setText("<html>Вы можете добавить<br>себе ещё " + count + " спичек");

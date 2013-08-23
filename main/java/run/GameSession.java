@@ -62,6 +62,7 @@ public class GameSession {
             throw new Exception("user id" + id.toString() + "not exist in system");
         }
         this.currentUser = users.get(id);
+        this.currentUser.getCounter().setActive();
     }
 
     public void changeCurrentUser() throws Exception {
@@ -69,11 +70,17 @@ public class GameSession {
             throw new Exception("user collection is empty");
         }
         Integer lastId = currentUser.getId();
+        this.currentUser.resetCount(this.getAviableMatches());
+        this.currentUser.getCounter().setCount(this.currentUser.type, this.currentUser.getCount());
+        this.currentUser.getCounter().setInactive();
         if(lastId == users.size()){
             this.setCurrentUser(1);
         } else{
             this.setCurrentUser(lastId + 1);
         }
+        this.currentUser.resetCount(this.getAviableMatches());
+        this.currentUser.getCounter().setCount(this.currentUser.type, this.currentUser.getCount());
+        this.currentUser.getCounter().setActive();
     }
 
     public User getCurrentUser(){

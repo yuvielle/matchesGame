@@ -86,8 +86,8 @@ public class GameFieldFrame extends JPanel {
                 try {
                     Integer available = session.getAviableMatches();
 
-                    session.getCurrentUser().resetCount(available);
                     session.changeCurrentUser();
+                    session.getCurrentUser().resetCount(available);
                     repaint();
                 } catch (Exception e1) {
                     e1.printStackTrace();

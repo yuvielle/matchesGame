@@ -59,6 +59,10 @@ public class DrawMatche extends JComponent {
     private void doDrawing(Graphics g) {
 
         Graphics2D g2d = (Graphics2D) g;
+
+        Random r = new Random();
+        Integer rotateDegree = Math.abs(r.nextInt(20));
+        g2d.rotate(Math.toRadians(rotateDegree));
         g2d.setPaint(this.texture);
         g2d.fillRect(0, 0, GameConfig.barXSize, GameConfig.barYSize);
     }
@@ -102,8 +106,9 @@ public class DrawMatche extends JComponent {
                 Map basketCoordinates = GameConfig.basketCoordinates.get(color);
                 Integer boxX = (Integer) basketCoordinates.get("x");
                 Integer boxY = (Integer) basketCoordinates.get("y");
+                Integer basketWith = (Integer) basketCoordinates.get("xSize");
 
-                if(getLocation().getX() > boxX && getLocation().getY() > boxY){
+                if(((color.equals("white") && getLocation().getX() > boxX)|| (color.equals("black") && getLocation().getX() < (boxX + basketWith))) && getLocation().getY() > boxY){
                     active = false;
                     removeDragListeners();
                     session.remooveMatche(id);
