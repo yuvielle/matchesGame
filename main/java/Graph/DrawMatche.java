@@ -39,6 +39,7 @@ public class DrawMatche extends JComponent {
     private boolean active = true;
     private GameSession session = GameSession.getInstance();
     private Integer id;
+    private Integer rotateDegree;
 
     public DrawMatche(Integer id) {
         this.id = id;
@@ -47,6 +48,8 @@ public class DrawMatche extends JComponent {
         setBackground(new Color(45, 46, 49));
         BufferedImage randomTexture = this.loadImages();
         this.texture = new TexturePaint(randomTexture, new Rectangle(0, 0, GameConfig.barXSize, GameConfig.barYSize));
+        Random r = new Random();
+        rotateDegree = Math.abs(r.nextInt(20));
     }
 
     @Override
@@ -59,9 +62,6 @@ public class DrawMatche extends JComponent {
     private void doDrawing(Graphics g) {
 
         Graphics2D g2d = (Graphics2D) g;
-
-        Random r = new Random();
-        Integer rotateDegree = Math.abs(r.nextInt(20));
         g2d.rotate(Math.toRadians(rotateDegree));
         g2d.setPaint(this.texture);
         g2d.fillRect(0, 0, GameConfig.barXSize, GameConfig.barYSize);

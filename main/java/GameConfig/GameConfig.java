@@ -17,6 +17,7 @@ public class GameConfig {
     public static int gameFieldYSize = 300;
     public static int barXSize = 100;
     public static int barYSize = 5;
+    public static int barRotateSize = 34;
 
     public static final Map<Integer, String> textureNames;
     static {

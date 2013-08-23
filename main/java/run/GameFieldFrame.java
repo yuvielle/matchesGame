@@ -95,8 +95,10 @@ public class GameFieldFrame extends JPanel {
                 System.out.println("available matches=" + session.getAviableMatches());
             }
         });
-        button.setSize(50, 20);
-        button.setBounds(300,10,50,20);
+        Integer x = GameConfig.windowXSize/2-50;
+        button.setBounds(x,40,100,20);
+        button.setMargin(new Insets(3,2,3,2));
+        button.setBorderPainted(false);
         button.setText("передать ход");
         button.setBackground(Color.gray);
         return button;
@@ -115,8 +117,8 @@ public class GameFieldFrame extends JPanel {
         DrawMatche d = new DrawMatche(i);
         Integer x = Math.abs(r.nextInt(GameConfig.gameFieldXSize - GameConfig.barXSize) + (GameConfig.windowXSize - GameConfig.gameFieldXSize)/2);
         Integer y = Math.abs(r.nextInt(GameConfig.gameFieldYSize - GameConfig.barYSize) + (GameConfig.windowYSize - GameConfig.gameFieldYSize)/2);
-        d.setBounds(x, y, GameConfig.barXSize, GameConfig.barYSize);
-        d.setSize(GameConfig.barXSize, GameConfig.barXSize);
+        d.setBounds(x, y, GameConfig.barXSize, GameConfig.barRotateSize);
+        //d.setSize(GameConfig.barXSize, GameConfig.barRotateSize);
         return d;
     }
 }
