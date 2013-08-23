@@ -88,6 +88,9 @@ public class GameFieldFrame extends JPanel {
 
                     session.changeCurrentUser();
                     session.getCurrentUser().resetCount(available);
+                    if(session.getCurrentUser().getType().equals("robot")){
+                        robotTurn();
+                    }
                     repaint();
                 } catch (Exception e1) {
                     e1.printStackTrace();
@@ -102,6 +105,29 @@ public class GameFieldFrame extends JPanel {
         button.setText("передать ход");
         button.setBackground(Color.gray);
         return button;
+    }
+
+    private Boolean robotTurn() throws Exception {
+        if(session.getAviableMatches() <= 0){
+            throw new Exception("no matches for this turn");
+        }
+        else if(session.getAviableMatches() <= 10){
+            this.takeMatches(session.getAviableMatches());
+            return true;
+        }
+        else{
+            Random r = new Random();
+            Integer m = Math.abs(r.nextInt(9)+1);
+            this.takeMatches(m);
+            System.out.println("select matches=" + m);
+            return false;
+        }
+    }
+
+    private void takeMatches(int count){
+        for(int i=1; i<=count; i++){
+             session.getLastMatche().move();
+        }
     }
 
     private DrawBasket addBasket(String color){
@@ -119,6 +145,7 @@ public class GameFieldFrame extends JPanel {
         Integer y = Math.abs(r.nextInt(GameConfig.gameFieldYSize - GameConfig.barYSize) + (GameConfig.windowYSize - GameConfig.gameFieldYSize)/2);
         d.setBounds(x, y, GameConfig.barXSize, GameConfig.barRotateSize);
         //d.setSize(GameConfig.barXSize, GameConfig.barRotateSize);
+        d.setBeginCoordinates(x, y);
         return d;
     }
 }

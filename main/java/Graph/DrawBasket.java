@@ -51,7 +51,8 @@ public class DrawBasket  extends JComponent {
 
         Graphics2D g2d = (Graphics2D) g;
         g2d.setPaint(this.texture);
-        g2d.fillRect(0, 0, (Integer) coordinates.get("xSize"), (Integer) coordinates.get("ySize"));
+        g2d.fillRoundRect(0, 0, (Integer) coordinates.get("xSize"), (Integer) coordinates.get("ySize"),10,10);
+        //g2d.fill3DRect(0, 0, (Integer) coordinates.get("xSize"), (Integer) coordinates.get("ySize"),true);
     }
 
     private void addMouseListeners() {

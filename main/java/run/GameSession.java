@@ -5,6 +5,8 @@ import Graph.DrawMatche;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NavigableMap;
+import java.util.TreeMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,7 +17,7 @@ import java.util.Map;
  */
 public class GameSession {
     private static GameSession ourInstance = new GameSession();
-    private Map<Integer, DrawMatche> matches = new HashMap<Integer, DrawMatche>();
+    private NavigableMap<Integer, DrawMatche> matches = new TreeMap<Integer, DrawMatche>();
     private Map<Integer, User> users = new HashMap<Integer, User>();
     private User currentUser;
 
@@ -93,6 +95,10 @@ public class GameSession {
 
     public DrawMatche getMatche(Integer i){
         return this.matches.get(i);
+    }
+
+    public DrawMatche getLastMatche(){
+        return this.matches.lastEntry().getValue();
     }
 
     public Integer getAviableMatches(){
