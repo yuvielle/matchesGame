@@ -56,26 +56,28 @@ public class ChangeUserButton extends JButton {
         setForeground(Color.black);
         active = true;
     }
-    private Boolean robotTurn() throws Exception {
+    private void robotTurn() throws Exception {
         if(session.getAviableMatches() <= 0){
             throw new Exception("no matches for this turn");
         }
         else if(session.getAviableMatches() <= 10){
             this.takeMatches(session.getAviableMatches());
-            return true;
         }
         else{
             Random r = new Random();
             Integer m = Math.abs(r.nextInt(9)+1);
             this.takeMatches(m);
             System.out.println("select matches=" + m);
-            return false;
         }
+        session.changeCurrentUser();
     }
 
     private void takeMatches(int count){
         for(int i=1; i<=count; i++){
-            session.getLastMatche().move();
+            System.out.println("take matche=" + i + "\n");
+            DrawMatche matche = session.getLastMatche();
+            matche.move();
+            session.remooveMatche(matche.getId());
         }
     }
 }

@@ -49,6 +49,10 @@ public class DrawMatche extends JComponent implements ActionListener {
     private int moveMinX;
     private int moveMinY;
 
+    public Integer getId(){
+        return this.id;
+    }
+
     public DrawMatche(Integer id) {
         this.id = id;
         addDragListeners();

@@ -127,7 +127,9 @@ public class GameSession {
     }
 
     public void remooveMatche(Integer i){
-        this.matches.remove(i);
+        if(this.matches.containsKey(i)){
+            this.matches.remove(i);
+        }
     }
 
     public class User{
