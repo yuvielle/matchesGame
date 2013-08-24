@@ -2,6 +2,7 @@ package run;
 
 import Graph.CountDisplay;
 import Graph.DrawMatche;
+import Graph.ShowTablo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +21,7 @@ public class GameSession {
     private NavigableMap<Integer, DrawMatche> matches = new TreeMap<Integer, DrawMatche>();
     private Map<Integer, User> users = new HashMap<Integer, User>();
     private User currentUser;
+    private ShowTablo tablo;
 
     public static GameSession getInstance() {
         return ourInstance;
@@ -28,9 +30,18 @@ public class GameSession {
     private GameSession() {
     }
 
-    public void resetSession(){
+    public ShowTablo getShowTablo(){
+        return this.tablo;
+    }
+
+    public void addTablo(ShowTablo tablo){
+        this.tablo = tablo;
+    }
+
+    public void resetSession(String strategy){
         this.clearUsers();
         this.matches.clear();
+        //this.tablo.resetTablo(strategy);
     }
 
     public void setUsers(String strategy) throws Exception {

@@ -4,6 +4,7 @@ import GameConfig.GameConfig;
 import Graph.CountDisplay;
 import Graph.DrawBasket;
 import Graph.DrawMatche;
+import Graph.ShowTablo;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +32,7 @@ public class GameFieldFrame extends JPanel {
 
     public void resetGameFrame(String strategy) throws Exception {
         this.strategy = strategy;
-        session.resetSession();
+        session.resetSession(strategy);
         session.setUsers(strategy);
         users = session.getUsers();
         removeAll();
@@ -48,7 +49,7 @@ public class GameFieldFrame extends JPanel {
     private void setElements(){
         add(this.tablo());
         Integer i = 1;
-        while(i<=100){
+        while(i<=GameConfig.countMatches){
             DrawMatche d = this.addMatche(i);
             session.addMatche(i, d);
             add(d);
@@ -70,10 +71,8 @@ public class GameFieldFrame extends JPanel {
     }
 
     private JLabel tablo(){
-        JLabel label = new JLabel();
-        label.setText("выбран вариант: " + GameConfig.strategyTitles.get(this.strategy));
-        label.setSize(300, 50);
-        label.setForeground(Color.cyan);
+        ShowTablo label = new ShowTablo(this.strategy);
+        session.addTablo(label);
         return label;
     }
 

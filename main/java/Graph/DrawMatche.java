@@ -137,6 +137,11 @@ public class DrawMatche extends JComponent implements ActionListener {
             counter.setCount("human", user.getCount());
             counter.repaint();
         }
+        if(session.getAviableMatches()<=0){
+            ShowTablo tablo = session.getShowTablo();
+            tablo.setWinners();
+            tablo.repaint();
+        }
     }
 
     public boolean getActive(){
@@ -214,7 +219,7 @@ public class DrawMatche extends JComponent implements ActionListener {
     public void animate(float fraction) {
 
         System.out.println("in animate" + moveX);
-        if(moveX > GameConfig.windowXSize || moveY > (GameConfig.leftBoxY + GameConfig.barYSize/2) || moveX < GameConfig.leftBoxX/2 ||getActive()|| moveY<0 ){
+        if(moveX > GameConfig.windowXSize || moveY > (GameConfig.leftBoxY + GameConfig.barYSize/2) || moveX < GameConfig.leftBoxX/2 || moveY<0 ){
             timer.stop();
             removeThisMatche();
             return;

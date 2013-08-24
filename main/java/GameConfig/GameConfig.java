@@ -18,6 +18,7 @@ public class GameConfig {
     public static int barXSize = 100;
     public static int barYSize = 5;
     public static int barRotateSize = 34;
+    public static int countMatches = 13;
 
     public static final Map<Integer, String> textureNames;
     static {
