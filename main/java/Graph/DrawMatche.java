@@ -61,9 +61,7 @@ public class DrawMatche extends JComponent implements ActionListener {
     }
 
     public void setBeginCoordinates(int x, int y){
-        this.moveX = x;
         this.moveMinX = x;
-        this.moveY = y;
         this.moveMinY = y;
     }
 
@@ -117,23 +115,28 @@ public class DrawMatche extends JComponent implements ActionListener {
                     repaint();
                 }
 
-                String color = user.getColor();
-                Map basketCoordinates = GameConfig.basketCoordinates.get(color);
-                Integer boxX = (Integer) basketCoordinates.get("x");
-                Integer boxY = (Integer) basketCoordinates.get("y");
-                Integer basketWith = (Integer) basketCoordinates.get("xSize");
-
-                if(((color.equals("white") && getLocation().getX() > boxX)|| (color.equals("black") && getLocation().getX() < (boxX + basketWith))) && getLocation().getY() > boxY){
-                    active = false;
-                    removeDragListeners();
-                    session.remooveMatche(id);
-                    user.updateCount();
-                    CountDisplay counter = user.getCounter();
-                    counter.setCount("human", user.getCount());
-                    counter.repaint();
-                }
+                removeThisMatche();
             }
         });
+    }
+
+    private void removeThisMatche(){
+        GameSession.User user = session.getCurrentUser();
+        String color = user.getColor();
+        Map basketCoordinates = GameConfig.basketCoordinates.get(color);
+        Integer boxX = (Integer) basketCoordinates.get("x");
+        Integer boxY = (Integer) basketCoordinates.get("y");
+        Integer basketWith = (Integer) basketCoordinates.get("xSize");
+
+        if(((color.equals("white") && getLocation().getX() > boxX)|| (color.equals("black") && getLocation().getX() < (boxX + basketWith))) && getLocation().getY() > boxY){
+            active = false;
+            removeDragListeners();
+            session.remooveMatche(id);
+            user.updateCount();
+            CountDisplay counter = user.getCounter();
+            counter.setCount("human", user.getCount());
+            counter.repaint();
+        }
     }
 
     public boolean getActive(){
@@ -181,6 +184,8 @@ public class DrawMatche extends JComponent implements ActionListener {
 
     /** Creates a new instance of SmoothAnimation */
     public void move() {
+        this.moveX = this.moveMinX;
+        this.moveY = this.moveMinY;
         cycleStart = System.nanoTime() / 1000000;
         startTimer(currentResolution);
     }
@@ -207,6 +212,13 @@ public class DrawMatche extends JComponent implements ActionListener {
      * fraction.
      */
     public void animate(float fraction) {
+
+        System.out.println("in animate" + moveX);
+        if(moveX > GameConfig.windowXSize || moveY > (GameConfig.leftBoxY + GameConfig.barYSize/2) || moveX < GameConfig.leftBoxX/2 ||getActive()|| moveY<0 ){
+            timer.stop();
+            removeThisMatche();
+            return;
+        }
         float animationFactor;
         if (linear) {
             animationFactor = fraction;
@@ -219,8 +231,9 @@ public class DrawMatche extends JComponent implements ActionListener {
         animationFactor = Math.min(animationFactor, 1.0f);
         animationFactor = Math.max(animationFactor, 0.0f);
         Map basketCoords = GameConfig.basketCoordinates.get("black");
-        moveX = moveX - (int) (.5f + animationFactor * (float) ((Integer)basketCoords.get("x") - moveMinX));
-        moveY = moveY - (int) (.5f + animationFactor * (float) ((Integer)basketCoords.get("y") - moveMinY));
+        moveX = moveX + (int) (.5f + animationFactor * (float) ((Integer)basketCoords.get("x") - moveMinX));
+        moveY = moveY + (int) (.5f + animationFactor * (float) ((Integer)basketCoords.get("y") - moveMinY));
+        System.out.println("select matches=" + moveX);
         Point position = new Point(moveX, moveY);
         setLocation(position);
         // The move animation will calculate a location based on a linear
