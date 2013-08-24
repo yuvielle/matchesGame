@@ -1,5 +1,6 @@
 package run;
 
+import Graph.ChangeUserButton;
 import Graph.CountDisplay;
 import Graph.DrawMatche;
 import Graph.ShowTablo;
@@ -22,6 +23,7 @@ public class GameSession {
     private Map<Integer, User> users = new HashMap<Integer, User>();
     private User currentUser;
     private ShowTablo tablo;
+    private ChangeUserButton button;
 
     public static GameSession getInstance() {
         return ourInstance;
@@ -36,6 +38,14 @@ public class GameSession {
 
     public void addTablo(ShowTablo tablo){
         this.tablo = tablo;
+    }
+
+    public void addButton(ChangeUserButton button){
+        this.button = button;
+    }
+
+    public ChangeUserButton getButton(){
+        return this.button;
     }
 
     public void resetSession(String strategy){

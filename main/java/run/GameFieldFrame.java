@@ -1,10 +1,7 @@
 package run;
 
 import GameConfig.GameConfig;
-import Graph.CountDisplay;
-import Graph.DrawBasket;
-import Graph.DrawMatche;
-import Graph.ShowTablo;
+import Graph.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -77,56 +74,9 @@ public class GameFieldFrame extends JPanel {
     }
 
     private JButton changeCurrentUser(){
-        JButton button = new JButton();
-        button.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e)
-            {
-                try {
-                    Integer available = session.getAviableMatches();
-
-                    session.changeCurrentUser();
-                    session.getCurrentUser().resetCount(available);
-                    if(session.getCurrentUser().getType().equals("robot")){
-                        robotTurn();
-                    }
-                    repaint();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
-                System.out.println("available matches=" + session.getAviableMatches());
-            }
-        });
-        Integer x = GameConfig.windowXSize/2-50;
-        button.setBounds(x,40,100,20);
-        button.setMargin(new Insets(3,2,3,2));
-        button.setBorderPainted(false);
-        button.setText("передать ход");
-        button.setBackground(Color.gray);
+        ChangeUserButton button = new ChangeUserButton();
+        session.addButton(button);
         return button;
-    }
-
-    private Boolean robotTurn() throws Exception {
-        if(session.getAviableMatches() <= 0){
-            throw new Exception("no matches for this turn");
-        }
-        else if(session.getAviableMatches() <= 10){
-            this.takeMatches(session.getAviableMatches());
-            return true;
-        }
-        else{
-            Random r = new Random();
-            Integer m = Math.abs(r.nextInt(9)+1);
-            this.takeMatches(m);
-            System.out.println("select matches=" + m);
-            return false;
-        }
-    }
-
-    private void takeMatches(int count){
-        for(int i=1; i<=count; i++){
-             session.getLastMatche().move();
-        }
     }
 
     private DrawBasket addBasket(String color){

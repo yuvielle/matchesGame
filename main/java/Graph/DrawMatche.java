@@ -140,6 +140,9 @@ public class DrawMatche extends JComponent implements ActionListener {
         if(session.getAviableMatches()<=0){
             ShowTablo tablo = session.getShowTablo();
             tablo.setWinners();
+            ChangeUserButton button = session.getButton();
+            button.setInactive();
+            button.repaint();
             tablo.repaint();
         }
     }
