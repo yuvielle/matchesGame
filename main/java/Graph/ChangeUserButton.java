@@ -66,8 +66,10 @@ public class ChangeUserButton extends JButton {
         active = true;
     }
     private void robotTurn() throws Exception {
+
         if(session.getAviableMatches() <= 0){
-            throw new Exception("no matches for this turn");
+            //session.getCurrentUser().resetCount(0);
+            return;
         }
         else if(session.getAviableMatches() <= 10){
             this.takeMatches(session.getAviableMatches());

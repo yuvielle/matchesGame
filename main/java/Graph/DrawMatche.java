@@ -139,8 +139,10 @@ public class DrawMatche extends JComponent implements ActionListener {
         if(((color.equals("white") && getLocation().getX() > boxX)|| (color.equals("black") && getLocation().getX() < (boxX + basketWith))) && getLocation().getY() > boxY){
             active = false;
             removeDragListeners();
-            session.remooveMatche(id);
-            user.updateCount();
+            if(session.isMatche(this.getId())){
+                session.remooveMatche(id);
+                user.updateCount();
+            }
             CountDisplay counter = user.getCounter();
             counter.setCount(user.getType(), user.getCount());
             counter.repaint();

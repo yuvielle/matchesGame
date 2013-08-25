@@ -136,6 +136,10 @@ public class GameSession {
         return this.matches.get(i);
     }
 
+    public boolean isMatche(Integer i){
+        return this.matches.containsKey(i);
+    }
+
     public DrawMatche getLastMatche(){
         return this.matches.lastEntry().getValue();
     }
