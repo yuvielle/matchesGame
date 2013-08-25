@@ -69,14 +69,21 @@ public class ChangeUserButton extends JButton {
             this.takeMatches(m);
             System.out.println("select matches=" + m);
         }
-        session.changeCurrentUser();
+        if(session.getNextUser().getType().equals("robot")){
+            session.changeCurrentUser();
+            this.robotTurn();
+        }
+        else{
+            session.changeCurrentUser();
+        }
     }
 
     private void takeMatches(int count){
+        String color = session.getCurrentUser().getColor();
         for(int i=1; i<=count; i++){
             System.out.println("take matche=" + i + "\n");
             DrawMatche matche = session.getLastMatche();
-            matche.move();
+            matche.move(color);
             session.remooveMatche(matche.getId());
         }
     }

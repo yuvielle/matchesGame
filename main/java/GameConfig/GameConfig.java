@@ -15,6 +15,10 @@ public class GameConfig {
     public static int windowYSize = 600;
     public static int gameFieldXSize = 400;
     public static int gameFieldYSize = 300;
+    public static int helpMessageXSize = 400;
+    public static int helpMessageYSize = 300;
+    public static int helpMessageX = 100;
+    public static int helpMessageY = 50;
     public static int barXSize = 100;
     public static int barYSize = 5;
     public static int barRotateSize = 34;

@@ -1,9 +1,6 @@
 package run;
 
-import Graph.ChangeUserButton;
-import Graph.CountDisplay;
-import Graph.DrawMatche;
-import Graph.ShowTablo;
+import Graph.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,12 +21,21 @@ public class GameSession {
     private User currentUser;
     private ShowTablo tablo;
     private ChangeUserButton button;
+    private HelpMessage helpMessage;
 
     public static GameSession getInstance() {
         return ourInstance;
     }
 
     private GameSession() {
+    }
+
+    public void  addHelpMessage(HelpMessage message){
+        this.helpMessage = message;
+    }
+
+    public HelpMessage getHelpMessage(){
+        return this.helpMessage;
     }
 
     public ShowTablo getShowTablo(){
@@ -104,6 +110,18 @@ public class GameSession {
         this.currentUser.resetCount(this.getAviableMatches());
         this.currentUser.getCounter().setCount(this.currentUser.type, this.currentUser.getCount());
         this.currentUser.getCounter().setActive();
+    }
+
+    public User getNextUser() throws Exception {
+        if(users.isEmpty()){
+            throw new Exception("user collection is empty");
+        }
+        Integer lastId = currentUser.getId();
+        if(lastId == users.size()){
+            return getUser(1);
+        } else{
+            return getUser(lastId + 1);
+        }
     }
 
     public User getCurrentUser(){

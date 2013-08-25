@@ -19,6 +19,7 @@ public class UserInterface {
 
     GameSession session = GameSession.getInstance();
     GameFieldFrame lp = GameFieldFrame.getInstance();
+
     public final JMenuBar getMenu() {
 
         JMenuBar menubar = new JMenuBar();
@@ -66,6 +67,20 @@ public class UserInterface {
             }
         });
 
+        JMenuItem help = new JMenuItem("Помощь");
+        select3.setMnemonic(KeyEvent.VK_S);
+        select3.setToolTipText("правила, подсказки и т.д.");
+        select3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                try {
+                    HelpMessage helpMessage = session.getHelpMessage();
+                    helpMessage.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+            }
+        });
+
         JMenuItem eMenuItem = new JMenuItem("выход");
         eMenuItem.setMnemonic(KeyEvent.VK_E);
         eMenuItem.setToolTipText("Exit application");
@@ -75,10 +90,10 @@ public class UserInterface {
             }
         });
 
-
         file.add(select1);
         file.add(select2);
         file.add(select3);
+        file.add(help);
         file.add(eMenuItem);
         menubar.add(file);
 

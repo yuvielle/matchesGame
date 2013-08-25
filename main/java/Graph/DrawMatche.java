@@ -48,6 +48,7 @@ public class DrawMatche extends JComponent implements ActionListener {
     private int moveY;
     private int moveMinX;
     private int moveMinY;
+    private String color;
 
     public Integer getId(){
         return this.id;
@@ -195,7 +196,8 @@ public class DrawMatche extends JComponent implements ActionListener {
     }
 
     /** Creates a new instance of SmoothAnimation */
-    public void move() {
+    public void move(String color) {
+        this.color = color;
         this.moveX = this.moveMinX;
         this.moveY = this.moveMinY;
         cycleStart = System.nanoTime() / 1000000;
@@ -242,7 +244,8 @@ public class DrawMatche extends JComponent implements ActionListener {
         // Clamp the value to make sure it does not exceed the bounds
         animationFactor = Math.min(animationFactor, 1.0f);
         animationFactor = Math.max(animationFactor, 0.0f);
-        Map basketCoords = GameConfig.basketCoordinates.get("black");
+        Map basketCoords = GameConfig.basketCoordinates.get(this.color);
+        System.out.println("user id is " + session.getCurrentUser().getId());
         moveX = moveX + (int) (.5f + animationFactor * (float) ((Integer)basketCoords.get("x") - moveMinX));
         moveY = moveY + (int) (.5f + animationFactor * (float) ((Integer)basketCoords.get("y") - moveMinY));
         System.out.println("select matches=" + moveX);
