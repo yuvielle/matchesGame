@@ -20,6 +20,7 @@ public class ChangeUserButton extends JButton {
 
     private boolean active = true;
     private GameSession session = GameSession.getInstance();
+    private boolean is_new = true;
     public ChangeUserButton(){
         addActionListener(new ActionListener() {
 
@@ -28,7 +29,11 @@ public class ChangeUserButton extends JButton {
                 try {
                     Integer available = session.getAviableMatches();
 
-                    session.changeCurrentUser();
+                    setText("передать ход");
+
+                    if(!is_new) session.changeCurrentUser();
+                    else is_new = false;
+
                     session.getCurrentUser().resetCount(available);
                     if (session.getCurrentUser().getType().equals("robot")) {
                         robotTurn();
@@ -44,11 +49,15 @@ public class ChangeUserButton extends JButton {
         setBounds(x, 40, 100, 20);
         setMargin(new Insets(3, 2, 3, 2));
         setBorderPainted(false);
-        setText("передать ход");
-        setBackground(Color.gray);
+        setText("Начать");
     }
+
+    public boolean is_new(){
+        return this.is_new;
+    }
+
     public void setInactive(){
-        setForeground(Color.darkGray);
+        setForeground(Color.lightGray);
         active = false;
     }
 
@@ -71,9 +80,11 @@ public class ChangeUserButton extends JButton {
         }
         if(session.getNextUser().getType().equals("robot")){
             session.changeCurrentUser();
+            Integer available = session.getAviableMatches();
+            session.getCurrentUser().resetCount(available);
             this.robotTurn();
         }
-        else{
+        else if(session.getAviableMatches() > 0){
             session.changeCurrentUser();
         }
     }

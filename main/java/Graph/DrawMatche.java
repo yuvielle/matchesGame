@@ -97,6 +97,9 @@ public class DrawMatche extends JComponent implements ActionListener {
             @Override
             public void mouseMoved(MouseEvent e) {
                 anchorPoint = e.getPoint();
+                GameSession.User user = session.getCurrentUser();
+                Integer count = user.getCount();
+                if(count <= 0 || user.getType().equals("robot") || session.getButton().is_new()) return;
                 setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
             }
 
@@ -106,7 +109,7 @@ public class DrawMatche extends JComponent implements ActionListener {
                 int anchorY = anchorPoint.y;
                 GameSession.User user = session.getCurrentUser();
                 Integer count = user.getCount();
-                if(count <= 0) return;
+                if(count <= 0 || user.getType().equals("robot") || session.getButton().is_new()) return;
 
                 Point parentOnScreen = getParent().getLocationOnScreen();
                 Point mouseOnScreen = e.getLocationOnScreen();
@@ -139,13 +142,14 @@ public class DrawMatche extends JComponent implements ActionListener {
             session.remooveMatche(id);
             user.updateCount();
             CountDisplay counter = user.getCounter();
-            counter.setCount("human", user.getCount());
+            counter.setCount(user.getType(), user.getCount());
             counter.repaint();
         }
         if(session.getAviableMatches()<=0){
             ShowTablo tablo = session.getShowTablo();
             tablo.setWinners();
             ChangeUserButton button = session.getButton();
+            button.setText("игра окончена");
             button.setInactive();
             button.repaint();
             tablo.repaint();

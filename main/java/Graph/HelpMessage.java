@@ -4,6 +4,9 @@ import GameConfig.GameConfig;
 import run.GameSession;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,21 +21,28 @@ import java.awt.event.ActionListener;
 public class HelpMessage extends JLabel{
 
     public HelpMessage(){
-        setText("<html>there will be a help message");
-        setSize(GameConfig.helpMessageXSize, GameConfig.helpMessageYSize);
+        setText("<html><h2>Правила игры</h2><p>Из кучки, первоначально содержащей 100 спичек,<br>двое играющих поочередно берут по несколько спичек: не более десяти. <br>Выигрывает взявший последнюю спичку. предусмотрена возможность игры человек-человек, человек-машина, машина-машина.</p>" +
+                "<p>В меню игра Вы можете выбрать стратегию игры: человек-человек, человек-машина или машина-машина</p><p>По умолчанию выбран вариант человек-человек</p><p>Чтоб выйти из этой справки и начать игру нажмите кнопку \"закрыть\" в низу этого окна.</p>");
         setForeground(Color.darkGray);
         setBackground(Color.lightGray);
+        setBorder(new EmptyBorder(10, 10, 10, 10));
+        setOpaque(true);
+        setBounds(GameConfig.helpMessageX, GameConfig.helpMessageY, GameConfig.helpMessageXSize, GameConfig.helpMessageYSize);
+
         JButton button = new JButton();
-        Integer x = GameConfig.windowXSize/2-50;
-        button.setBounds(x, 40, 100, 20);
+        Integer x = GameConfig.windowXSize/2-GameConfig.helpMessageX-20;
+        Integer y = 260;
+        button.setBounds(x, y, 100, 20);
         button.setMargin(new Insets(3, 2, 3, 2));
         button.setBorderPainted(false);
-        setText("передать ход");
-        setBackground(Color.gray);
+        button.setText("закрыть");
+        add(button);
+
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 try {
                     setVisible(false);
+                    repaint();
                 } catch (Exception e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }

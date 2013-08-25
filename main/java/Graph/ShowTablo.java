@@ -26,7 +26,7 @@ public class ShowTablo extends JLabel {
 
     public void setWinners(){
         GameSession.User user = session.getCurrentUser();
-        setText("Игра завершена, победиель " + user.getType() + " игрок " + user.getId());
+        setText("Игра завершена, победиель " + user.getType() + " игрок " + user.getColor());
     }
 
     public void resetTablo(String strategy){

@@ -41,10 +41,6 @@ public class GameFieldFrame extends JPanel {
         setBackground(new Color(45, 46, 49));
         setLayout(null);
         setSize(GameConfig.windowXSize, GameConfig.windowYSize);
-        HelpMessage helpMessage = new HelpMessage();
-        session.addHelpMessage(helpMessage);
-        add(helpMessage);
-        helpMessage.setVisible(false);
     }
 
     private void setElements(){
@@ -67,6 +63,10 @@ public class GameFieldFrame extends JPanel {
             add(counter);
         }
         add(this.changeCurrentUser());
+        HelpMessage helpMessage = new HelpMessage();
+        session.addHelpMessage(helpMessage);
+        add(helpMessage);
+        helpMessage.setVisible(false);
         revalidate();
         repaint();
     }

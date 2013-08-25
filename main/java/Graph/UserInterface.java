@@ -68,13 +68,15 @@ public class UserInterface {
         });
 
         JMenuItem help = new JMenuItem("Помощь");
-        select3.setMnemonic(KeyEvent.VK_S);
-        select3.setToolTipText("правила, подсказки и т.д.");
-        select3.addActionListener(new ActionListener() {
+        help.setMnemonic(KeyEvent.VK_S);
+        help.setToolTipText("правила, подсказки и т.д.");
+        help.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
+                System.out.println("test help button\n");
                 try {
                     HelpMessage helpMessage = session.getHelpMessage();
                     helpMessage.setVisible(true);
+                    helpMessage.repaint();
                 } catch (Exception e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                 }
