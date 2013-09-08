@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.NavigableMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -74,6 +75,16 @@ public class UserInterface {
             public void actionPerformed(ActionEvent event) {
                 System.out.println("test help button\n");
                 try {
+                    GameSession session = GameSession.getInstance();
+                    NavigableMap<Integer, DrawMatche> matches = session.getAllMatches();
+                    for(int i = 1; i<=matches.size(); i++){
+                        matches.get(i).setVisible(false);
+                        matches.get(i).repaint();
+                    }
+
+                    session.getButton().setVisible(false);
+                    session.getButton().repaint();
+
                     HelpMessage helpMessage = session.getHelpMessage();
                     helpMessage.setVisible(true);
                     helpMessage.repaint();

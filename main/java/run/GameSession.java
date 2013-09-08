@@ -148,6 +148,10 @@ public class GameSession {
         return this.matches.size();
     }
 
+    public NavigableMap<Integer, DrawMatche> getAllMatches(){
+        return this.matches;
+    }
+
     public void remooveMatche(Integer i){
         if(this.matches.containsKey(i)){
             this.matches.remove(i);

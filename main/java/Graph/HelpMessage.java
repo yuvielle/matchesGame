@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.NavigableMap;
 
 /**
  * Created with IntelliJ IDEA.
@@ -42,6 +43,16 @@ public class HelpMessage extends JLabel{
             public void actionPerformed(ActionEvent event) {
                 try {
                     setVisible(false);
+                    GameSession session = GameSession.getInstance();
+                    NavigableMap<Integer, DrawMatche> matches = session.getAllMatches();
+                    for(int i = 1; i<=matches.size(); i++){
+                        matches.get(i).setVisible(true);
+                        matches.get(i).repaint();
+                    }
+
+                    session.getButton().setVisible(true);
+                    session.getButton().repaint();
+
                     repaint();
                 } catch (Exception e) {
                     e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
